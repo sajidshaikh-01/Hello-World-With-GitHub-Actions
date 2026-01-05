@@ -1,0 +1,29 @@
+name: Multi-Job Sequential Workflow
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run tests
+        run: echo "Running unit tests"
+
+  build:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Build application
+        run: echo "Building application"
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy application
+        run: echo "Deploying application"
